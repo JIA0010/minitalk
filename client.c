@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
+/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 07:59:41 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/08/08 11:28:40 by yoshimurahi      ###   ########.fr       */
+/*   Updated: 2023/08/30 16:23:15 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,13 @@ void	error(const char *msg)
 
 static void	send_bit(const pid_t pid, const int bit)
 {
-	int sig;
+	int	sig;
 
 	sig = 0;
 	if (bit)
 		sig = SIGUSR1;
 	else
 		sig = SIGUSR2;
-
 	if (kill(pid, sig) == -1)
 		error("Failed to send signal\n");
 	if (usleep(200) == -1)
@@ -36,7 +35,7 @@ static void	send_bit(const pid_t pid, const int bit)
 
 static void	send_char(const pid_t pid, const char c)
 {
-	int bit;
+	int	bit;
 
 	bit = 7;
 	while (bit >= 0)
@@ -53,18 +52,16 @@ static void	send_str(const pid_t pid, const char *str)
 	send_char(pid, '\n');
 }
 
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
-	pid_t pid;
-	
-    if (argc != 3)
+	pid_t	pid;
+
+	if (argc != 3)
 	{
 		error("Usage: ./client <pid_number> <message>\n");
-		return 1;
+		return (1);
 	}
-	
 	pid = ft_atoi(argv[1]);
 	send_str(pid, argv[2]);
-
-	return 0;
+	return (0);
 }
