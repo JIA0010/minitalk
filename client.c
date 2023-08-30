@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 07:59:41 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/08/30 16:23:15 by cjia             ###   ########.fr       */
+/*   Updated: 2023/08/30 17:04:49 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	main(int argc, char *argv[])
 		return (1);
 	}
 	pid = ft_atoi(argv[1]);
+	if (pid == -1)
+		error("Usage: ./client <pid_number> <message>\n");
 	send_str(pid, argv[2]);
 	return (0);
 }
