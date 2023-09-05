@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 07:59:49 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/08/30 09:25:19 by cjia             ###   ########.fr       */
+/*   Updated: 2023/09/05 12:31:27 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int			g_char = 0;
 
-void	error(const char *msg)
+static void	server_error(const char *msg)
 {
 	ft_printf("Error: %s\n", msg);
 	exit(1);
@@ -23,7 +23,7 @@ void	error(const char *msg)
 static void	output(void)
 {
 	if (write(1, &g_char, 1) == -1)
-		error("Failed to write character.\n");
+		server_error("Failed to write character.\n");
 	g_char = 0;
 }
 
@@ -35,7 +35,7 @@ static void	signal_handler(int signum)
 	else if (signum == SIGUSR2)
 		;
 	else
-		error("Received an unexpected signal.\n");
+		server_error("Received an unexpected signal.\n");
 }
 
 void	setup_signal_handlers(void)
@@ -46,9 +46,9 @@ void	setup_signal_handlers(void)
 	sa.sa_handler = signal_handler;
 	sigemptyset(&sa.sa_mask);
 	if (sigaction(SIGUSR1, &sa, NULL) == -1)
-		error("Failed to set signal handler for SIGUSR1.\n");
+		server_error("Failed to set signal handler for SIGUSR1.\n");
 	if (sigaction(SIGUSR2, &sa, NULL) == -1)
-		error("Failed to set signal handler for SIGUSR2.\n");
+		server_error("Failed to set signal handler for SIGUSR2.\n");
 }
 
 int	main(void)

@@ -6,13 +6,13 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 07:59:41 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/08/30 17:04:49 by cjia             ###   ########.fr       */
+/*   Updated: 2023/09/05 12:29:54 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	error(const char *msg)
+static void	client_error(const char *msg)
 {
 	ft_printf("Error: %s", msg);
 	exit(1);
@@ -28,9 +28,9 @@ static void	send_bit(const pid_t pid, const int bit)
 	else
 		sig = SIGUSR2;
 	if (kill(pid, sig) == -1)
-		error("Failed to send signal\n");
+		client_error("Failed to send signal\n");
 	if (usleep(200) == -1)
-		error("usleep failed\n");
+		client_error("usleep failed\n");
 }
 
 static void	send_char(const pid_t pid, const char c)
@@ -58,12 +58,12 @@ int	main(int argc, char *argv[])
 
 	if (argc != 3)
 	{
-		error("Usage: ./client <pid_number> <message>\n");
+		client_error("Usage: ./client <pid_number> <message>\n");
 		return (1);
 	}
 	pid = ft_atoi(argv[1]);
 	if (pid == -1)
-		error("Usage: ./client <pid_number> <message>\n");
+		client_error("Usage: ./client <pid_number> <message>\n");
 	send_str(pid, argv[2]);
 	return (0);
 }
