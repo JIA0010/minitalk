@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 07:59:41 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/09/05 12:29:54 by cjia             ###   ########.fr       */
+/*   Updated: 2023/09/09 12:57:00 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	send_bit(const pid_t pid, const int bit)
 		sig = SIGUSR2;
 	if (kill(pid, sig) == -1)
 		client_error("Failed to send signal\n");
-	if (usleep(200) == -1)
+	if (usleep(500) == -1)
 		client_error("usleep failed\n");
 }
 
@@ -62,7 +62,7 @@ int	main(int argc, char *argv[])
 		return (1);
 	}
 	pid = ft_atoi(argv[1]);
-	if (pid == -1)
+	if (pid == -1 || pid == 0)
 		client_error("Usage: ./client <pid_number> <message>\n");
 	send_str(pid, argv[2]);
 	return (0);
