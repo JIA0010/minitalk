@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 07:59:49 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/09/05 12:31:27 by cjia             ###   ########.fr       */
+/*   Updated: 2023/09/30 17:28:07 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ static void	output(void)
 
 static void	signal_handler(int signum)
 {
+	static int	bit_count = 0;
+
+	// bit_count = 0;
+
 	g_char = g_char << 1;
 	if (signum == SIGUSR1)
 		g_char |= 1;
@@ -36,6 +40,11 @@ static void	signal_handler(int signum)
 		;
 	else
 		server_error("Received an unexpected signal.\n");
+	if (++bit_count == 8)
+		{
+			output();
+			bit_count = 0;
+		}
 }
 
 void	setup_signal_handlers(void)
@@ -53,19 +62,20 @@ void	setup_signal_handlers(void)
 
 int	main(void)
 {
-	int	bit_count;
+	// int	bit_count;
 
-	bit_count = 0;
+	// bit_count = 0;
 	setup_signal_handlers();
 	ft_printf("Server pid: %d \n", getpid());
 	while (1)
 	{
 		pause();
-		if (++bit_count == 8)
-		{
-			output();
-			bit_count = 0;
-		}
+		printf("hello\n");
+		// if (++bit_count == 8)
+		// {
+		// 	output();
+		// 	bit_count = 0;
+		// }
 	}
 	return (0);
 }

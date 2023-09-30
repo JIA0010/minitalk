@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
+/*   By: yoshimurahiro <yoshimurahiro@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 07:59:41 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/09/09 12:57:00 by cjia             ###   ########.fr       */
+/*   Updated: 2023/09/30 17:10:22 by yoshimurahi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	send_bit(const pid_t pid, const int bit)
 		sig = SIGUSR2;
 	if (kill(pid, sig) == -1)
 		client_error("Failed to send signal\n");
-	if (usleep(500) == -1)
+	if (usleep(600) == -1)
 		client_error("usleep failed\n");
 }
 
