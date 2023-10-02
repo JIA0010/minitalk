@@ -6,7 +6,7 @@
 /*   By: cjia <cjia@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 07:59:49 by yoshimurahi       #+#    #+#             */
-/*   Updated: 2023/10/02 12:53:22 by cjia             ###   ########.fr       */
+/*   Updated: 2023/10/02 12:55:45 by cjia             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static void	signal_handler(int signum)
 {
 	static int	bit_count;
 
-	bit_count = 0;
 	g_char = g_char << 1;
 	if (signum == SIGUSR1)
 		g_char |= 1;
